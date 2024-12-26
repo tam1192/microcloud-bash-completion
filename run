@@ -1,0 +1,35 @@
+#!/bin/sudo /bin/bash
+
+# var
+COMP_DIR="/etc/bash_completion.d"
+
+# root enable completion
+printf "if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
+fi" >> ~/.bashrc
+
+mkdir -p $COMP_DIR
+
+# lxd completion install
+ln -s /snap/lxd/current/etc/bash_completion.d/snap.lxd.lxc $COMP_DIR
+
+# ceph completion install
+# alias
+printf "alias rbd=microceph.rbd" >> ~/.bash_aliases
+printf "alias ovs-vsctl=microovn.ovs-vsctl" >> ~/.bash_aliases
+printf "alias rados=microceph.rados" >> ~/.bash_aliases
+printf "alias radosgw-admin=microceph.radosgw-admin" >> ~/.bash_aliases
+
+# download
+curl https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/src/bash_completion/ceph > $COMP_DIR/ceph
+curl https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/src/bash_completion/rados > $COMP_DIR/rados
+curl https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/src/bash_completion/rbd > $COMP_DIR/rbd
+curl https://raw.githubusercontent.com/ceph/ceph/refs/heads/main/src/bash_completion/radosgw-admin > $COMP_DIR/radosgw-admin
+
+# ovn
+# alias
+printf "alias ovs-vsctl=microovn.ovs-vsctl" >> ~/.bash_aliases
+
+# download
+printf "export OVS_RUNDIR=\"/var/snap/microovn/common/run/switch/\"" > $COMP_DIR/ovs-vsctl-bashcomp
+curl https://raw.githubusercontent.com/openvswitch/ovs/refs/heads/main/utilities/ovs-vsctl-bashcomp.bash >> $COMP_DIR/ovs-vsctl-bashcomp
