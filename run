@@ -1,5 +1,4 @@
-#!/bin/sudo /bin/bash
-
+sudo bash -c '
 # var
 COMP_DIR="/etc/bash_completion.d"
 
@@ -33,3 +32,4 @@ printf "alias ovs-vsctl=microovn.ovs-vsctl" >> ~/.bash_aliases
 # download
 printf "export OVS_RUNDIR=\"/var/snap/microovn/common/run/switch/\"" > $COMP_DIR/ovs-vsctl-bashcomp
 curl https://raw.githubusercontent.com/openvswitch/ovs/refs/heads/main/utilities/ovs-vsctl-bashcomp.bash >> $COMP_DIR/ovs-vsctl-bashcomp
+'
